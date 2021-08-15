@@ -1,4 +1,4 @@
-import { AppBar, Container, IconButton, Toolbar, Typography, Box, Paper, Grid, Card, CardMedia, CardContent, CardActions, BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import { AppBar, Container, IconButton, Toolbar, Typography, Box, Paper, Grid, Card, CardMedia, CardContent, CardActions, BottomNavigation, BottomNavigationAction, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
 
 import FolderIcon from "@material-ui/icons/Folder";
 import RestoreIcon from "@material-ui/icons/Restore";
@@ -56,6 +56,17 @@ function App() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <AppBar position="fixed">
@@ -68,13 +79,28 @@ function App() {
               React site M-UI
             </Typography>
             <Box mr={3}>
-              <Button color="inherit" variant="outlined">
-                {" "}
+              <Button color="inherit" variant="outlined" onClick={handleClickOpen}>
                 Log in
               </Button>
+
+              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Log in</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>Log in to see videos</DialogContentText>
+                  <TextField autoFocus margin="dense" id="name" label="Email Adress" type="email" fullWidth />
+                  <TextField margin="dense" id="pass" label="Password" type="password" fullWidth />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleClose} color="primary">
+                    Log in
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Box>
             <Button color="secondary" variant="contained">
-              {" "}
               Sing in
             </Button>
           </Toolbar>
